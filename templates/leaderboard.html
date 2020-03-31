@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Old Skool - Leaderboard</title>
+  <meta charset="utf-8">
+<!--  <meta http-equiv="refresh" content="5"/>-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Hammersmith+One|Lato&display=swap" rel="stylesheet">
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+<!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript"
+  src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript">
+  var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+</head>
+<style>
+  body {
+
+  background:linear-gradient(to right,
+      rgba(64,224,208,0.75) ,
+      rgba(245,245,245,0.75)
+
+
+      );
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  }
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+
+  #nav{
+    background:whitesmoke;
+    margin-bottom:0;
+  }
+  #home{
+
+    font-family: 'Hammersmith One', sans-serif;
+  }
+
+  .nav a{
+    color: rgb(0, 0, 0) !important;
+    font-family: 'Lato';
+    font-size: 1.67em;
+    font-weight: bold;
+    margin: 8px 0;
+    margin-right: 0%;
+    }
+
+    .navbar .container .navbar-brand {
+
+    color: #000000 !important;
+    font-weight: bold;
+    margin: 8px 0;
+
+  }
+  ul.nav a:hover { color: #4b92dc !important; }
+
+
+
+
+
+  .jumbotron {
+      height:100vh;
+      font-family: 'Hammersmith One', sans-serif;
+      padding-top: 10%;
+      padding-bottom: 20%;
+      padding-left: 5%;
+      margin-top: 0;
+      margin-bottom: 0%;
+      color:black !important;
+      /* border-radius: 20px; */
+
+      /* background: rgba(64,224,208,0.85);
+      background-image: url('247.jpg');
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; */
+
+      background:linear-gradient(to right,
+      rgba(245,245,245,0.75),
+      rgba(64,224,208,0.75)
+
+
+
+      ),
+      url('/static/1.jpg');
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+
+
+    }
+  .jumbotron p{
+    font-family: 'Lato';
+    font-weight: normal;
+  }
+  .jumbotron h3{
+    font-family: 'Lato';
+    font-weight: bolder;
+  }
+
+
+
+
+
+
+  #b1 {
+    font-family: 'Lato','sans-serif';
+    font-weight: bolder;
+    height: 50px;
+
+  margin-left: 44% ;
+  background-color: rgb(7, 81, 124);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  /* padding: 15px 32px; */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+</style>
+<body>
+
+<script type="text/javascript">
+  var intervalID = setInterval(update_values,1000);
+
+  function update_values() {
+        $.getJSON($SCRIPT_ROOT + '/_stuff',
+
+      function(data) {
+        $('#name').text(data.name);
+        $('#grade').text(data.grade);
+        $('#time').text(data.time);
+        $('#msg').text(data.msg);
+        $('#head').text(data.head);
+        console.log(data)
+      });
+
+    };
+
+    function stopTextColor() {
+      clearInterval(intervalID);
+    }
+</script>
+<div class="jumbotron" id="page_home">
+    <form action="/">
+        <button class="btn-primary" onclick="stopTextColor();">Go back to Home</button>
+    </form>
+
+    <br>
+    <h1>Bringing old skool vibes back to the future of learning</h1>
+
+    <br>
+    <br>
+
+    <h3>
+        <span id="head">Live attention scores of students:</span>
+        <script>
+            document.getElementById("head").innerHTML;
+        </script>
+    </h3>
+
+    <br><br>
+    <p><b>Updated at:</b>
+        <span id="time">{{time}}</span>
+        <script>
+            document.getElementById("time").innerHTML;
+        </script>
+    </p>
+
+    <br><br>
+
+    <div class="container" style=" margin-top: 50px; padding-left: 300px; padding-right: 300px">
+      <table class="table" >
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Grade</th>
+            </tr>
+          </thead>
+          <tbody class="table-active">
+            {%for i in range(0, no)%}
+            <tr>
+              <th scope="row">
+                  <span id="name">Loading...</span>
+                  <script>
+                      document.getElementById("name").innerHTML;
+                  </script>
+              </th>
+              <th scope="row">
+                  <span id="grade">Loading...</span>
+                  <script>
+                      document.getElementById("grade").innerHTML;
+                  </script>
+              </th>
+            </tr>
+            {%endfor%}
+          </tbody>
+      </table>
+    </div>
+
+    <span id="msg"></span>
+    <script>
+      document.getElementById("msg").innerHTML;
+    </script>
+</div>
+
+</body>
+</html>
+
